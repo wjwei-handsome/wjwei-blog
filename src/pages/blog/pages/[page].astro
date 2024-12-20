@@ -1,7 +1,7 @@
 ---
 import type { Page, GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
-import BaseLayout from "@/layouts/Sidebar";
+import BaseLayout from "@/layouts/Base";
 import PostPreview from "@/components/blog/PostPreviewA";
 import Pagination from "@/components/Pagination";
 import {
@@ -30,7 +30,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 		);
 
 		return paginate(filteredByLang, {
-			params: { lang },
+			// params: { lang },
 			props: { tags },
 			pageSize: siteConfig.settings.paginationSize,
 		});

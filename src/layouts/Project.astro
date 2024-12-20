@@ -3,9 +3,10 @@ import { siteConfig } from "../consts";
 import SidebarLayout from "./Sidebar.astro";
 import SocialMediaLinks from "@/components/SocialMediaLinks";
 import TOC from "@/components/TableOfContents";
-import { getLangFromUrl, useUITranslations } from "@/utils";
+import { getLangFromUrl } from "@/utils";
 import { Icon } from "astro-icon";
 import type { CollectionEntry } from "astro:content";
+import ui from "@/ui/ui";
 
 interface Props {
 	project: CollectionEntry<"project">;
@@ -13,7 +14,6 @@ interface Props {
 
 const { project } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
-const translate = useUITranslations(lang);
 const {
 	data: {
 		title,
@@ -50,7 +50,7 @@ const articleDate = pubDate.toISOString();
 			{
 				platform && (
 					<li class="project-frontmatter-item">
-						<small>{translate("project.platform").text}</small>
+						<small>{ui["project.platform"].text}</small>
 						<span>{platform}</span>
 					</li>
 				)
@@ -58,7 +58,7 @@ const articleDate = pubDate.toISOString();
 			{
 				stack && (
 					<li class="project-frontmatter-item">
-						<small>{translate("project.stack").text}</small>
+						<small>{ui["project.stack"].text}</small>
 						<ul class="inline-flex gap-2 sm:gap-4">
 							{stack.map((s: string) => (
 								<li>
@@ -77,7 +77,7 @@ const articleDate = pubDate.toISOString();
 			{
 				website && (
 					<li class="project-frontmatter-item">
-						<small>{translate("project.website").text}</small>
+						<small>{ui["project.website"].text}</small>
 						<a href={website} target="_blank" class="cody-link">
 							{website}
 						</a>
@@ -111,7 +111,7 @@ const articleDate = pubDate.toISOString();
 			</h2>
 			{
 				siteConfig.profile.description && (
-					<p>{translate("profile.description").text}</p>
+					<p>{ui["profile.description"].text}</p>
 				)
 			}
 			<SocialMediaLinks />

@@ -2,21 +2,17 @@
 import HeaderLink from "./HeaderLink.astro";
 import { siteConfig, NAV_LINKS } from "../consts";
 import ThemeToggle from "@/components/ThemeToggle";
-import SelectLanguage from "@/components/SelectLanguage";
-import { getLangFromUrl } from "@/utils";
-import { useNavTranslations } from "src/utils/i18n";
-import type { NavEntry } from "@/i18n/nav";
+import type { NavEntry } from "@/ui/nav";
+import nav from "@/ui/nav"
 
 const url = new URL(Astro.request.url);
-const lang = getLangFromUrl(Astro.url);
-const t = useNavTranslations(lang);
 
 function buildNavLink(nav: string, entry: NavEntry): string {
 	if (entry.route) {
-		return `/${lang}${entry.route}`;
+		return `${entry.route}`;
 	}
-
-	return `/${lang}${nav != "home" ? `/${entry.slug}/` : "/"}`;
+	// return `/${nav != "home" ? `/${entry.slug}/` : "/"}`;
+	return `/${entry.slug}`
 }
 ---
 
@@ -27,7 +23,7 @@ function buildNavLink(nav: string, entry: NavEntry): string {
 	<div class="block">
 		<a
 			class="title whitespace-nowrap"
-			href={`/${lang}/`}
+			href={`/`}
 			aria-current={url.pathname === "/" ? "page" : false}
 			>{siteConfig.title}</a
 		>
@@ -38,25 +34,26 @@ function buildNavLink(nav: string, entry: NavEntry): string {
 		id="navigation-menu"
 		aria-label="main menu"
 	>
+
 		<div
 			class="space-y-1 px-2 pb-3 pt-2 sm:flex sm:px-0 sm:py-0 sm:space-y-0 sm:space-x-2"
 		>
 			{
-				NAV_LINKS.map((nav) => {
-					const translation = t(nav);
+				NAV_LINKS.map((current_nav) => {
+					const naventry = nav[current_nav];
 					return (
 						<HeaderLink
 							class="block py-2 sm:py-0"
-							href={buildNavLink(nav, translation)}
-							title={translation.text}
+							href={buildNavLink(current_nav, naventry)}
+							title={naventry.text}
 							aria-current={
-								url.pathname === translation.slug
+								url.pathname === naventry.slug
 									? "page"
 									: false
 							}
 							data-astro-prefetch
 						>
-							{translation.text}
+							{naventry.text}
 						</HeaderLink>
 					);
 				})
@@ -66,20 +63,19 @@ function buildNavLink(nav: string, entry: NavEntry): string {
 				href="/tags"
 				title="tags"
 				aria-current={url.pathname === "tags" ? "page" : false}
-				data-astro-prefetch>{t("tags").text}</HeaderLink
+				data-astro-prefetch>{nav["tags"].text}</HeaderLink
 			>
 			<HeaderLink
 				class="sm:hidden block py-2 sm:py-0"
 				href="/series"
 				title="series"
 				aria-current={url.pathname === "series" ? "page" : false}
-				data-astro-prefetch>{t("series").text}</HeaderLink
+				data-astro-prefetch>{nav["series"].text}</HeaderLink
 			>
 		</div>
 	</nav>
 
 	<div class="flex gap-2 items-center justify-center">
-		<SelectLanguage class="sm:mr-2" />
 		<ThemeToggle />
 
 		<nav-button>

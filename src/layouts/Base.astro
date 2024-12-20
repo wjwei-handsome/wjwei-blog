@@ -3,8 +3,7 @@ import BaseHead from "@/components/BaseHead";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { siteConfig } from "../consts.ts";
-import { getLangFromUrl } from "@/utils";
-import ui from "@/i18n/ui";
+import ui from "@/ui/ui";
 
 interface Props {
 	title?: string;
@@ -12,17 +11,15 @@ interface Props {
 	image?: string;
 }
 
-const lang = getLangFromUrl(Astro.url);
-
 const {
 	title = siteConfig.title,
-	description = ui[lang]["site.description"].text,
+	description = ui["site.description"].text,
 	image,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang={lang || Astro.currentLocale} class="dark">
+<html lang={Astro.currentLocale} class="dark">
 	<head>
 		<BaseHead title={title} description={description} image={image} />
 	</head>

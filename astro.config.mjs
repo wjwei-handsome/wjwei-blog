@@ -11,8 +11,8 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), tailwind()],
   // NOTE: Make sure this matches your supported languages in the file: src/consts.ts
   i18n: {
-    defaultLocale: "ch",
-    locales: ["en", "ch"],
+    defaultLocale: "zh",
+    locales: ["zh"],
   },
   markdown: {
     remarkPlugins: [remarkReadingTime],
