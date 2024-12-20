@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'>;
+
+const { href, class: className, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+const isActive = href === pathname || href === pathname.replace(/\/$/, '');
+---
+
+<a href={href} class:list={[className, { active: isActive }]} {...props}>
+	<slot />
+</a>
+
+<style>
+a:before {
+	content: "./";
+	@apply -mr-2 text-accent-2;
+}
+a {
+	@apply text-accent mr-1;
+}
+a:hover {
+	text-decoration: underline;
+}
+</style>

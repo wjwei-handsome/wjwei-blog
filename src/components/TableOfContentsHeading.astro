@@ -1,0 +1,32 @@
+---
+// TableOfContentsHeading.astro
+import type { MarkdownHeading } from "astro";
+const { heading } = Astro.props;
+---
+
+<li>
+  <a href={'#' + heading.slug} id={`toc-${heading.slug}`}>
+    {heading.text}
+  </a>
+  {
+  heading.subheadings.length > 0 && (
+    <ul class="ml-2">
+      {heading.subheadings.map((subheading: MarkdownHeading[]) => (
+        <Astro.self heading={subheading} />
+      ))}
+    </ul>
+  )
+  }
+</li>
+
+<style>
+  li:before {
+    content: "#";
+    @apply -mr-2 text-accent;
+  }
+
+  .active-toc {
+    @apply text-accent;
+  }
+</style>
+

@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    /* https://tailwindcss.com/docs/customizing-colors#using-css-variables */
+    --theme-bg: #efefef;
+    --theme-text: #222222;
+    --theme-accent: #dd7878;
+    --theme-accent-2: #bcc0cd;
+    --theme-surface: #e6e6e6;
+    --theme-quote: #dd7878;
+    --theme-highlight: #dd7878;
+  }
+
+  :root.dark {
+    color-scheme: dark;
+    --theme-bg: #1d1d1d;
+    --theme-text: #ededed;
+    --theme-accent: #93e1d4;
+    --theme-accent-2: #545454;
+    --theme-surface: #2f2f2f;
+    --theme-quote: #93e1d4;
+    --theme-highlight: #93e1d4;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  html body {
+    @apply mx-auto flex min-h-screen max-w-6xl flex-col px-4 pt-4 md:pt-8 font-mono text-sm font-normal antialiased bg-bgColor text-textColor;
+  }
+
+  /*
+  * CSS for markdown and MDX blog posts
+  */
+
+  .prose-cody blockquote {
+    @apply text-quote border-l-0;
+  }
+
+  .prose-cody a {
+    @apply no-underline;
+  }
+
+  .prose-cody strong {
+    font-weight: 700;
+  }
+
+  .prose-cody :where(code):not(:where([class~=not-prose],[class~=not-prose] *)) {
+    @apply bg-accent !text-surface px-1 py-0;
+  }
+
+  .prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::before{
+    content: none !important;
+  }
+
+  .prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::after{
+    content: none !important;
+  }
+
+  .prose-cody hr {
+    border-top-style: dashed;
+    border-top-width: 0.5px;
+    @apply border-accent my-4;
+  }
+  .prose-cody thead {
+    @apply border-b-0;
+  }
+
+  .prose-cody thead th {
+    @apply font-bold border-b border-dashed border-accent;
+  }
+
+  .prose-cody tbody tr {
+    @apply border-b-0;
+  }
+
+  .prose-cody tfoot {
+    @apply font-bold border-t border-dashed border-accent;
+  }
+
+  .prose-cody sup {
+    @apply ms-0.5;
+  }
+
+  .prose-cody sup > a {
+    @apply bg-none;
+  }
+
+  .prose-cody sup > a:hover {
+    @apply text-accent no-underline bg-none;
+  }
+
+  .prose-cody sup > a:before {
+    content: "[";
+    @apply text-accent;
+  }
+
+  .prose-cody sup > a:after {
+    content: "]";
+    @apply text-accent;
+  }
+
+  .prose-cody mark {
+    @apply bg-accent;
+  }
+
+  .prose-cody li::marker {
+    @apply text-accent;
+  }
+
+  .prose-cody table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /*
+  * ===== END =====
+  */
+
+  .tag {
+    @apply bg-accent px-1 py-0 text-bgColor font-semibold text-sm;
+  }
+
+  .tag:before {
+    content: "#";
+    @apply -mr-2;
+  }
+
+  .cody-link {
+    @apply bg-[size:100%_6px] bg-bottom bg-repeat-x w-fit;
+    background-image: linear-gradient(
+      transparent,
+      transparent 5px,
+      var(--theme-text) 5px,
+      var(--theme-text)
+    );
+  }
+
+  .cody-link:hover {
+    background-image: linear-gradient(
+      transparent,
+      transparent 4px,
+      var(--theme-accent) 4px,
+      var(--theme-accent)
+    );
+  }
+
+  .cody-bg {
+    @apply p-4 bg-surface;
+  }
+
+  .cody-copy-code {
+    @apply absolute top-2 right-2 bg-accent text-bgColor p-0.5 border border-accent hover:bg-bgColor hover:text-accent transition-all duration-200 text-sm;
+  }
+
+  .title:before {
+    content: "#";
+    @apply mr-2 text-accent-2;
+  }
+
+  .title {
+    @apply text-lg font-bold mb-4;
+  }
+
+  hr {
+    @apply border-accent border-dashed my-6;
+  }
+
+  ::selection {
+    @apply bg-highlight text-bgColor;
+  }
+
+  ::-moz-selection {
+    @apply bg-highlight text-bgColor;
+  }
+
+  .fade-in {
+    @apply transition-opacity duration-700 ease-in opacity-100 duration-700;
+  }
+  
+  .fade-out {
+    @apply transition-opacity duration-700 ease-in opacity-0 duration-700;
+  }
+}
