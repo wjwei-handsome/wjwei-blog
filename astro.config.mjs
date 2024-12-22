@@ -3,7 +3,6 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { remarkReadingTime } from "./src/utils/remark-reading-time.mjs";
 import vercel from '@astrojs/vercel/serverless';
-
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
