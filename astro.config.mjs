@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { remarkReadingTime } from "./src/utils/remark-reading-time.mjs";
-import vercel from '@astrojs/vercel/static';
+// import vercel from '@astrojs/vercel/static';
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
@@ -14,14 +14,14 @@ export default defineConfig({
     defaultLocale: "en",
     locales: ["en"],
   },
-  output: "static",
-  adapter: vercel(
-    {
-      webAnalytics: {
-        enabled: true,
-      },
-    }
-  ),
+  // output: "static",
+  // adapter: vercel(
+  //   {
+  //     webAnalytics: {
+  //       enabled: true,
+  //     },
+  //   }
+  // ),
   markdown: {
     remarkPlugins: [remarkReadingTime],
     syntaxHighlight: "shiki",
