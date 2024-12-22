@@ -14,7 +14,7 @@ export default defineConfig({
     defaultLocale: "en",
     locales: ["en"],
   },
-  // output: "static",
+  output: "static",
   // adapter: vercel(
   //   {
   //     webAnalytics: {
