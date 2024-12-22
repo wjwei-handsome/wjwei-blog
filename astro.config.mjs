@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { remarkReadingTime } from "./src/utils/remark-reading-time.mjs";
+import vercel from '@astrojs/vercel/serverless';
 
 import tailwind from "@astrojs/tailwind";
 
@@ -14,6 +15,14 @@ export default defineConfig({
     defaultLocale: "en",
     locales: ["en"],
   },
+  output: "dist",
+  adapter: vercel(
+    {
+      webAnalytics: {
+        enabled: true,
+      },
+    }
+  ),
   markdown: {
     remarkPlugins: [remarkReadingTime],
     syntaxHighlight: "shiki",
