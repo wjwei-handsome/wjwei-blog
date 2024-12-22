@@ -5,10 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && pagefind --site dist",
     "preview": "astro preview",
-    "astro": "astro",
-    "postbuild": "pagefind --site dist"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
