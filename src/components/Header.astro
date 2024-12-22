@@ -2,12 +2,13 @@
 import HeaderLink from "./HeaderLink.astro";
 import { siteConfig, NAV_LINKS } from "../consts";
 import ThemeToggle from "@/components/ThemeToggle";
+import Search from "@/components/Search"
 import type { NavEntry } from "@/ui/nav";
 import nav from "@/ui/nav"
 
 const url = new URL(Astro.request.url);
 
-function buildNavLink(nav: string, entry: NavEntry): string {
+function buildNavLink(entry: NavEntry): string {
 	if (entry.route) {
 		return `${entry.route}`;
 	}
@@ -44,7 +45,7 @@ function buildNavLink(nav: string, entry: NavEntry): string {
 					return (
 						<HeaderLink
 							class="block py-2 sm:py-0"
-							href={buildNavLink(current_nav, naventry)}
+							href={buildNavLink(naventry)}
 							title={naventry.text}
 							aria-current={
 								url.pathname === naventry.slug
@@ -74,10 +75,10 @@ function buildNavLink(nav: string, entry: NavEntry): string {
 			>
 		</div>
 	</nav>
+	<nav ><Search id="search" className="pagefind-ui wwjsearch" uiOptions={{showImages: false}} /> </nav>
 
 	<div class="flex gap-2 items-center justify-center">
 		<ThemeToggle />
-
 		<nav-button>
 			<div class="sm:hidden">
 				<span class="sr-only">open main menu</span>
@@ -131,15 +132,18 @@ function buildNavLink(nav: string, entry: NavEntry): string {
 	}
 
 	.title:before {
-		content: "[";
+		content: "<";
 		margin-right: 0;
 		@apply text-bgColor;
 	}
 
 	.title:after {
-		content: "]";
+		content: ">";
 		@apply text-bgColor;
 	}
+	.pagefind-ui {
+        @apply text-red-300;
+    }
 </style>
 
 <script>

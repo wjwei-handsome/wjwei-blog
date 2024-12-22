@@ -3,7 +3,6 @@ import { siteConfig } from "../consts";
 import SidebarLayout from "./Sidebar.astro";
 import SocialMediaLinks from "@/components/SocialMediaLinks";
 import TOC from "@/components/TableOfContents";
-import { getLangFromUrl } from "@/utils";
 import { Icon } from "astro-icon";
 import type { CollectionEntry } from "astro:content";
 import ui from "@/ui/ui";
@@ -13,7 +12,6 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
 const {
 	data: {
 		title,

@@ -12,15 +12,15 @@ export function isValidLanguageCode(lang: string): boolean {
   return Object.hasOwn(SUPPORTED_LANGUAGES, lang);
 }
 
-export function getLangFromUrl(url: URL) {
-  // const [, lang] = url.pathname.split("/");
-  // if (lang in SUPPORTED_LANGUAGES) {
-  //   return lang as SupportedLanguage;
-  // }
-  return DEFAULT_LANG;
-}
+// export function getLangFromUrl(url: URL) {
+//   // const [, lang] = url.pathname.split("/");
+//   // if (lang in SUPPORTED_LANGUAGES) {
+//   //   return lang as SupportedLanguage;
+//   // }
+//   return DEFAULT_LANG;
+// }
 
-export function getLangFromSlug(slug: string) {
+export function getLangFromSlug(_slug: string) {
   // const [lang] = slug.split("/");
   // if (lang in SUPPORTED_LANGUAGES) {
   //   return lang as SupportedLanguage;

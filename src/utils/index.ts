@@ -27,7 +27,6 @@ export {
   type SupportedLanguage,
   getSupportedLanguages,
   isValidLanguageCode,
-  getLangFromUrl,
   getLangFromSlug,
   // useNav,
   // useUITranslations,

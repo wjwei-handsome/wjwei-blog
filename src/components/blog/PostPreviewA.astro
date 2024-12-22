@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import type { HTMLTag, Polymorphic } from "astro/types";
 import FormattedDate from "@/components/FormattedDate";
 import { Icon } from "astro-icon";
-import { getLangFromUrl, getSlugFromCollectionEntry } from "@/utils";
+import {getSlugFromCollectionEntry } from "@/utils";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 	post: CollectionEntry<"blog" | "project">;
@@ -12,7 +12,6 @@ type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 
 const { post, withDesc = false } = Astro.props;
 const postDate = post.data.updatedDate ?? post.data.pubDate;
-const lang = getLangFromUrl(Astro.url);
 const slug = getSlugFromCollectionEntry(post);
 const pinned: boolean = !!post.data.order;
 const urlBasePath =
