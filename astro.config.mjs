@@ -10,7 +10,11 @@ import {
   starlightAsides,
 } from "./src/utils/remark-admon";
 import expressiveCode from "astro-expressive-code";
-import remarkMermaid from "remark-mermaidjs";
+
+import rehypeMermaid from "rehype-mermaid";
+
+// import expressiveCode from "astro-expressive-code";
+// import remarkMermaid from "remark-mermaidjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,13 +28,13 @@ export default defineConfig({
     expressiveCode(),
     mdx({
       remarkPlugins: [
-        remarkMermaid,
+        // remarkMermaid,
         remarkMath,
         remarkReadingTime,
         ...starlightAsides(),
         remarkDirectivesRestoration,
       ],
-      rehypePlugins: [rehypeKatex],
+      rehypePlugins: [rehypeKatex, rehypeMermaid],
       syntaxHighlight: "shiki",
       shikiConfig: {
         // https://docs.astro.build/en/guides/markdown-content/#syntax-highlighting
@@ -58,6 +62,7 @@ export default defineConfig({
   // ),
   markdown: {
     remarkPlugins: [remarkReadingTime],
+    rehypePlugins: [rehypeMermaid],
     syntaxHighlight: "shiki",
     shikiConfig: {
       // https://docs.astro.build/en/guides/markdown-content/#syntax-highlighting
