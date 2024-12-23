@@ -1,0 +1,46 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main # 监听主分支
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 设置 Node.js 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22" # 确保版本与本地一致
+          cache: "npm"
+
+      # 安装依赖
+      - name: Install dependencies
+        run: npm install
+
+      # 安装 Playwright 依赖
+      - name: Install Playwright
+        run: npm install -D @playwright/test@latest
+      # 安装 Playwright 依赖
+      - name: Install Playwright-browser
+        run: npx playwright install --with-deps
+
+      # 构建 Astro 项目
+      - name: Build project
+        run: npm run build
+
+      # 部署到 Vercel
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ ohyOrDTVE6OY77MZSq6lxTCi }}
+          vercel-org-id: ${{ team_Ui52RxIplwzU2lquPRKjLS9q }}
+          vercel-project-id: ${{ prj_uTO3TZd2LrrmkB5YSKwXLiwe1h2O }}
+          working-directory: . # 如果你的项目在子目录，请调整路径

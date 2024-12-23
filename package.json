@@ -5,10 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "npm run playwright-install && astro check && astro build && npx pagefind --site dist",
+    "build": "astro check && astro build && npx pagefind --site dist",
     "preview": "astro preview",
-    "astro": "astro",
-    "playwright-install": "npm install -D @playwright/test@latest && npx playwright install --with-deps"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
