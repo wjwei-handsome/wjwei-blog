@@ -1,0 +1,534 @@
+---
+title: Linux/MacOS 中 Shell 命令行技巧分享
+description: 命令行的花样玩法
+tags: [command-line]
+pubDate: Dec 22 2024
+series: Linux
+---
+import AsciinemaPlayer from '../../../components/AsciinemaPlayer.astro'
+
+生物信息吃饭的家伙，离不开 Shell 的命令行操作，其中魅力无穷。其中有一些技巧 / 配置 / 工具，可以让操作更加丝 (zhuang) 滑 (bi)。莱次够！
+
+
+## Fish Shell 代替 Bash/Zsh
+
+Bash 是 Linux 系统默认的 Shell，在初学生物信息的时候，不知道被哪篇公众号文章骗了，以为 Bash 是 Basic Shell 的简写，其实并不是，全称是 `Bourne Again Shell`，`Bourne` 是它的作者的名字。
+为什么有个 again 呢，因为这哥们在之前就写过一个 Shell，叫做 Bourne Shell，所以这个是它的升级版，也是目前最常用的 Shell 版本。
+
+后面渐渐熟悉 Linux Shell 操作了，感觉原汁原味的 Bash 无法满足我的一些效率要求，但初期我可以写一些简单的 bash function，比如：
+
+- 我有时候要对手动装的软件的 binary 目录添加到系统环境变量 PATH:
+```bash
+function add_dir2path() {
+    echo $PATH | grep "${PWD}:" > /dev/null
+    if [$? -ne 0];then
+        echo "export PATH=$PWD:\$PATH" >>$CFG/path.cfg && sbc && tail -1 $CFG/path.cfg
+    else
+        echo -e "\033[35m[WARNING]\033[0m --> Already in PATH" >&2
+    fi
+}
+```
+渐渐的，管理自定义的 `alias`、`functions` 也比较麻烦，有时候会忘记自己写过什么，移植到新环境也比较麻烦，要改各种路径等等。
+
+后来接触到了 `Zsh`，一开始体验不错，UI 好看，自带功能也多，配合火热的 `oh-my-zsh` 用了一段时间，但是存在的问题就是随着 `.zshrc` 配置的冗余，zsh 越来越慢。
+
+再到后来，接触到了 rust 写的 [starship](https://starship.rs/)，相当惊艳，之前花了大力气配置的各种 PS 变量，只需要自定义简单易读的 `toml` 配置就行了。
+
+终于到了 23 年，把自己集群上的一些稀碎的配置、文件都整理了一些，再了解到了 [Fish Shell](https://fishshell.com/)，虽然官网的样子很复古。
+
+Fish 的全称是 `Friendly Interactive Shell`，人如其名，最大的特点就是方便易用，很多之前 Bash/Zsh 需要配置的功能，Fish 开箱即用。
+
+### 安装
+
+#### MacOS 安装
+
+不多说了，本地电脑安装最简单了，`brew` 就完事了
+
+#### Linux 安装
+
+如果是在有 root 权限的自己服务器上安装，挑选包管理器安装就行。
+
+但我是在集群环境上使用的，是没有 root 权限的，所以选择源码安装：
+
+```shell
+# 下载源码
+wget https://github.com/fish-shell/fish-shell/releases/download/3.6.1/fish-3.6.1.tar.xz
+# 解压
+tar -xvf fish-3.6.1.tar.xz
+# 进入目录
+cd fish-3.6.1
+# 配置
+cmake . ## cmake 版本要求详见 README.rst
+# 编译
+make -j8 ## 加加速
+# 安装
+make install ## 一般而言你没权限装到系统目录，所以需要指定安装目录
+```
+### 配置
+
+#### 设置为默认 Shell
+
+- 有 root 权限的服务器，可以直接 `chsh -s /usr/local/bin/fish`，然后重新登录即可
+- 没有 root 权限的服务器，比如我的集群，我在 `~/.bash_profile` 中添加 `exec /your/path/to/fish`，然后重新登录即可，
+这样相当于每次登录都会执行 `fish`，就相当于默认了
+
+#### 配置主题
+
+我比较喜欢干净简洁的 `pure` 主题：https://github.com/pure-fish/pure
+
+### 特点
+
+#### 执行结果颜色区分
+
+执行结果是否成功，会有不同的颜色区分，比如：
+
+
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588641"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={2}
+  speed={1.5}
+  rows={10}
+  cols={120}
+  class="custom-player"
+/>
+#### 路径是否存在提醒
+
+如果命令行中输入的路径存在，会有下划线提示，否则没有，可以避免输入错误路径，如图所示：
+
+```js
+<AsciinemaComponent prefix={'https://asciinema.org/a/588645'} rows={'10'} cols={'80'}></AsciinemaComponent>
+```
+
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588645"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={2}
+  speed={1.5}
+  rows={10}
+  cols={80}
+  class="custom-player"
+/>
+
+#### 自动建议 / 补全
+
+Fish 会自动根据你的输入，给出建议，比如：
+
+- 命令建议，比如 `git` 命令，输入 `gi`，会出现 `git push` 命令的建议，按下 <kbd>Tab</kbd> 键，就会自动补全：
+
+![fish-3](https://raw.githubusercontent.com/wjwei-handsome/wwjPic/main/img/20230531170114.png)
+
+:::note
+
+它的建议主要是根据你的 history 来的，比如我最近执行 `git push` 比较多，就会给出这个建议。
+
+:::
+
+- 参数建议，有些命令的参数，对于非英语母语的用户来说，有些记不住，比如 `grep` 的 `--files-without-match` 参数，有时候无法写出完整的，这时候输入 `grep --file`，按下 <kbd>Tab</kbd> 键，就会给出参数的含义：
+
+```js
+<AsciinemaComponent prefix={"https://asciinema.org/a/588660"} rows={'10'} cols={'120'}></AsciinemaComponent>
+```
+
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588660"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={2}
+  speed={1.5}
+  rows={10}
+  cols={120}
+  class="custom-player"
+/>
+
+:::note
+
+不仅参数，一些软件的子命令也可以给出补全和含义，只要配置好自己的 completions 即可
+
+:::
+
+
+在安装 fish 时候，会自动安装一些 Linux 自带命令的 completions，具体目录参见 [这里官方文档](https://fishshell.com/docs/current/completions.html),
+
+比如我经常记不住的 sort 的参数：
+
+```js
+<AsciinemaComponent prefix={"https://asciinema.org/a/588661"} rows={'20'} cols={'120'}></AsciinemaComponent>
+```
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588661"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={2}
+  speed={1.5}
+  rows={20}
+  cols={120}
+  class="custom-player"
+/>
+
+一些友好的第三方软件在安装时候，也会自动配置 completions，或者提供生成 completions 的命令，比如我常用的 `csvtk` 和 `seqkit`
+
+```shell
+seqkit genautocomplete --shell fish --file ~/.config/fish/completions/seqkit.fish
+```
+
+```shell
+csvtk genautocomplete --shell fish --file ~/.config/fish/completions/csvtk.fish
+```
+生成补全建议后效果：
+
+```js
+<AsciinemaComponent prefix={"https://asciinema.org/a/588665"} rows={'40'} cols={'120'}></AsciinemaComponent>
+```
+
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588665"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={2}
+  speed={1.5}
+  rows={40}
+  cols={120}
+  class="custom-player"
+/>
+
+如果没有这个，我忘了命令用法，只能去网上搜，所以这大大提示了效率
+
+- / 其他补全
+
+还包括但不限于：
+1. 路径建议补全
+2. git 分支补全
+3. 命令历史补全
+4. 环境变量补全
+5. ssh hosts 补全
+6. ...
+
+#### 实用的内置函数
+
+- `string`：字符串处理函数，比如 `string match`，`string replace`，`string split`，`string join`，`string sub` 等
+- `math`：数学函数，这个对我而言比较实用，我在做一些实时统计的时候，要做一些简单的运算，比如：我要统计日志目录中运行成功的数量，并除以总任务的数量，可以这样：
+```shell
+math (rg 'Successfully completed' -tlog -l|wc -l)/(wc -l ../sample.list |cut -f1 -d' ')
+```
+语法简洁明了
+- `fish_add_path`: 添加环境变量，比如 `fish_add_path /my/new_software/dir/bin`，这样就可以直接执行 `/my/new_software/dir/bin` 下的命令了
+- 其他的详见 [官方文档](https://fishshell.com/docs/current/commands.html)
+
+#### 不一样的语法？
+
+Fish 的语法和 Bash 有些不同，其中优劣，各有千秋，都是工具，顺手就行。个人觉得 Fish 的语法更合我胃口。
+
+## 用 `rg` 替代 `grep`
+
+[rg](https://github.com/BurntSushi/ripgrep) 的全称是 `ripgrep`，是一个用 Rust 写的 grep 工具，速度比原生 grep 和其他替代品比如 ag[更快](https://blog.burntsushi.net/ripgrep/#single-file-benchmarks)
+
+有以下特点：
+- 速度更快，因为
+    + 有限自动机
+    + SIMD
+    + 内存缓冲
+    + 无锁的并行递归目录迭代器
+- 默认递归搜索，不需要 `grep -R`
+- 自动遵循 `.gitignore` 文件，不需要额外 `grep --exclude-dir `
+- 指定文件类型搜索，比如 `rg -t py`，不需要额外 `grep -r --include='*.py'`
+- 支持 grep 的大部分 feature
+- 默认高亮搜索结果
+- 等等
+
+:::caution
+
+rg 用 Rust 写的，所以它的正则语法和 grep 不一样，具体参见 [官方文档](https://docs.rs/regex/1/regex/#syntax)
+
+:::
+
+### 安装 / 使用
+
+Rust 写的，就不多说了，直接用 `cargo` 安装：
+
+```shell
+cargo install ripgrep
+```
+大部分用法和 grep 一样，具体参见官方文档或者自动补全解释
+
+## 用 `fd` 替代 `find`
+
+[fd](https://github.com/sharkdp/fd) 是用 Rust 写的 `find` 的替代品，速度更快，语法更简洁，功能更强大。
+
+说实话，我之前特别讨厌 `find`，因为用的频率不是很高，但是每次要用，就记不住参数，而且速度一般，集群上海量文件，每次在主目录搜想要的文件要半天。
+
+相比起来，fd 的语法更让我喜欢，比如：
+
+```shell
+## 搜索当前目录下所有文件名包含 rs 的文件
+find ./ -name "rs"
+
+## fd
+fd rs
+```
+
+### 安装 / 使用
+
+cargo!
+
+使用方法自己看吧，复制粘贴浪费网络空间。
+
+## 用 `bat` 替代 `cat`
+
+bat 是用 Rust 写的 cat 的替代品，有以下特点：
+- 语法高亮：支持绝大部分主流语言语法高亮
+- Git 集成：支持显示文件修改前后的差异
+- 自动分页：支持自动分页，不需要 `cat | less`
+- 可显示不可见字符：比如空格，tab，换行符等
+- 涵盖原生 cat 的所有功能
+
+### 安装 / 使用
+
+cargo/ 自行查阅
+
+### 备注
+
+实际上，我单独使用 bat 的情况不多，我个人基本很少在终端阅读代码，更偏好编辑器。
+
+## `fzf` 模糊搜索文件
+
+这位是重量级，是一个命令行模糊搜索工具，支持按文件名、文件内容搜索匹配，配合自定义的搜索命令，可以提升效率。用 Golang 编写。
+
+### 安装
+
+```shell
+## 很简单
+git clone https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+```
+
+### 使用
+
+最简单的就是在当前目录直接使用，也可以接收 stdin，比如用 `fd` 来过滤 `.gitignore` 文件，然后用 `fzf` 来模糊搜索。
+
+可以上下键选择，按 <kbd>Tab</kbd> 可以多选条目，按 <kbd>Enter</kbd> 确认选择，会将选择的文件路径输出到 stdout
+
+```js
+<AsciinemaComponent prefix={"https://asciinema.org/a/588840"}/>
+```
+
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588840"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={0}
+  speed={1}
+  cols={120}
+  rows={20}
+  class="custom-player"
+/>
+
+### 配置
+
+fzf 默认查找文件用的是系统自带的 `find` 命令，但是这个命令的速度比较慢，可以用 `fd` 来替代，速度会快很多。
+
+按照官方文档所述，改变 `$FZF_DEFAULT_COMMAND` 变量即可，比如替换为：
+
+```shell
+set -g FZF_DEFAULT_COMMAND 'fd --exclude={.git,.idea,target,node_modules,build} --type f'
+```
+
+其他具体配置可参考官方文档。
+
+### 效率
+
+有时候会在一个比较大的项目目录中，忘记了自己要找的文件的名字，用这个就比较方便。
+
+## `fzf.fish` 大整合
+
+其实上面这四个 Linux 原生工具的替代品，每一个都并不是缺一不可的，但是如果能够将它们整合起来，才是提高效率的究级体。
+
+[`fzf.fish`](https://github.com/PatrickF1/fzf.fish) 是一个 Fish 插件，实际上就是一系列 Fish 函数，来整合 `fzf`、`fd`、`bat`、`fish` 这
+几样强力工具。
+
+### 搜索当前目录
+这个是用的最多的，对我而言有两种用法：
+1. 进入了一个项目目录，忘记了要寻找、** 预览 ** 文件的的名字，可以直接按下 <kbd>Ctrl</kbd> + <kbd>z</kbd>，然后输入关键字，就可以模糊搜索了：
+
+```js
+<AsciinemaComponent prefix={"https://asciinema.org/a/588846"} />
+```
+
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588846"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={2}
+  speed={1.5}
+  cols={120}
+  rows={20}
+  class="custom-player"
+/>
+
+可以看到，查找、预览比较快速，有时候会忘记这个文件的内容长什么样子了，也可以看一眼来确定。
+
+当然，想根据文件内容来查找也可以，后面我会 ** 自定义一个函数命令 ** 来实现。
+
+2. 第二种用法相对实用，在使用很多生物信息软件时，大部分都要指定一些文件，比如 `fa/fq/gff/bed` 等，有时候写不出具体的路径，又要重开命令行去寻找，然后复制粘贴路径。
+有了这个快捷键，再配合输入的已知前缀 token，就可以快速找到文件了，比如我要找一个 `fa` 文件，我记得前面的路径是 `~/vg/`，后面忘了，就可以这样：
+
+```js
+<AsciinemaComponent prefix={"https://asciinema.org/a/588847"} cols="140" rows="20" />
+```
+
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588847"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={2}
+  speed={1.5}
+  rows={20}
+  cols={120}
+  class="custom-player"
+/>
+
+
+### 搜索历史记录
+实际上我用这个比较少，因为大部分都会帮我自动补全建议，我很少主动去模糊搜索历史记录
+
+### 搜索环境变量
+这个倒是比较方便，但用的频率也不是很高，用法简单，比如：
+
+```js
+<AsciinemaComponent prefix={"https://asciinema.org/a/588850"} />
+```
+
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588850"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={2}
+  speed={1.5}
+  cols={120}
+  rows={10}
+  class="custom-player"
+/>
+
+### 在当前目录搜索文件内容
+
+这个功能在原生的 `fzf.fish` 中并没实现，但我这个需求还比较常用，那么怎么实现呢？自己写一个就行
+
+模仿 `fzf.fish` 中 [`_fzf_search_directory`](https://github.com/PatrickF1/fzf.fish/blob/main/functions/_fzf_search_directory.fish) 的写法，写一个 `_fzf_grep_current_dir.fish`，然后放到 `~/.config/fish/functions/` 目录下
+
+然后修改 `~/.config/fish/functions/fzf_configure_bindings.fish` 其中的键盘绑定，将 <kbd>Ctrl</kbd>+<kbd>g</kbd> 绑定到 `_fzf_grep_current_dir` 函数上，效果如下：
+
+
+```
+<AsciinemaComponent prefix={"https://asciinema.org/a/588853"} />
+```
+
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588853"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={2}
+  speed={1.5}
+  cols={120}
+  rows={20}
+  class="custom-player"
+/>
+
+可以实现以下特征：
+1. 搜索当前目录下的所有文件
+2. 高亮匹配的关键字
+3. 实时预览搜索内容
+4. 展示匹配行号、行数
+
+函数实现如下：
+```shell title=~/.config/fish/functions/_fzf_grep_current_dir.fish showLineNumbers
+ function _fzf_grep_current_dir --description "Search current directory content for current token. Replace the current token with the selected file paths."
+    # Make sure that fzf uses fish as shell.
+    set --local --export SHELL (command --search fish)
+
+    set rg_cmd rg --color=always --smart-case --no-heading --count --auto-hybrid-regex
+    set token (commandline --current-token | string unescape)
+
+    set fzf_arguments --multi --ansi --disabled --delimiter=: --query=$token \
+        --preview='rg --smart-case --auto-hybrid-regex --pretty --context 2 {q} {1}' \
+	#--preview="_fzf_preview_file {} |rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 'CIMBL' || rg --ignore-case --pretty --context 10 'CIMBL' {}" \
+	# reload the search when the query change
+	--bind "change:reload:$rg_cmd {q} || true"
+
+    set file_paths_selected
+    for file in ($rg_cmd $token | _fzf_wrapper $fzf_arguments)
+       set --append file_paths_selected (string split : $file)[1]
+    end
+
+    if test $status -eq 0
+        commandline --current-token --replace -- (string escape -- $file_paths_selected | string join ' ')
+    end
+
+    commandline --function repaint
+end
+```
+
+### 安装 / 配置
+
+#### 安装
+
+首先需要安装 `fish`、`fzf`、`fd`、`bat`，然后安装 `fzf.fish` 插件
+
+```shell
+fisher install PatrickF1/fzf.fish
+```
+#### 配置
+
+基本开箱即用，常用的就是修改 `fzf` 的参数和键盘绑定，具体参考 [官方文档](https://github.com/PatrickF1/fzf.fish#configuration)
+
+## 使用 zoxide 来快速改变目录
+
+`cd` 是日常工作中最常见的命令了，但是存在一个痛点在于，随着项目和目录的增多，有时候路径的深度也不断增加，在切换目录时，要输入很长的路径
+虽然可以一路 <kbd>Tab</kbd> 补全，但还是多了很多不必要的操作。特别是有些目录，一天要进好多次，主要是心疼键盘。
+
+那么之前其实有过一些解决方案 / 产品，比如 `z`、`autojump`，但是 [`zoxide`](https://github.com/ajeetdsouza/zoxide) 的出现，大大加快了速度，提升了使用体验。
+
+### 安装配置
+
+`zoxide` 用 Rust 实现，所以 cargo
+
+配置，根据不同的 shell 来，Fish 如下：
+
+```shell
+zoxide init fish | source
+```
+添加到 `~/.config/fish/config.fish` 即可。
+
+### 使用
+
+不多说，智能好用就完事了，它的原理是会根据你的历史记录、最近是否访问过来计算一个权重，然后根据权重来排序。
+
+用的时候，`z` 后面跟一个模糊的名称，然后按 <kbd>Tab</kbd> 选择补全，就可以快速切换目录了，比如我只记得 `crus`，不想输入前缀路径：
+
+```js
+<AsciinemaComponent prefix={"https://asciinema.org/a/588858"} />
+```
+<AsciinemaPlayer
+  src="https://asciinema.org/a/588858"
+  theme="solarized-light"
+  autoPlay={false}
+  loop={false}
+  idleTimeLimit={2}
+  speed={1.5}
+  cols={120}
+  rows={20}
+  class="custom-player"
+/>
+
+## 参考资料

@@ -13,6 +13,63 @@
     --theme-surface: #e6e6e6;
     --theme-quote: #dd7878;
     --theme-highlight: #dd7878;
+
+    --sl-hue-orange: 41;
+    --sl-hue-green: 101;
+    --sl-hue-blue: 234;
+    --sl-hue-purple: 281;
+    --sl-hue-red: 339;
+
+    --sl-color-white: hsl(224, 10%, 10%);
+    --sl-color-gray-1: hsl(224, 14%, 16%);
+    --sl-color-gray-2: hsl(224, 10%, 23%);
+    --sl-color-gray-3: hsl(224, 7%, 36%);
+    --sl-color-gray-4: hsl(224, 6%, 56%);
+    --sl-color-gray-5: hsl(224, 6%, 77%);
+    --sl-color-gray-6: hsl(224, 20%, 94%);
+    --sl-color-gray-7: hsl(224, 19%, 97%);
+    --sl-color-black: hsl(0, 0%, 100%);
+
+    --sl-color-orange-high: hsl(var(--sl-hue-orange), 80%, 25%);
+    --sl-color-orange: hsl(var(--sl-hue-orange), 90%, 60%);
+    --sl-color-orange-low: hsl(var(--sl-hue-orange), 90%, 88%);
+    --sl-color-green-high: hsl(var(--sl-hue-green), 80%, 22%);
+    --sl-color-green: hsl(var(--sl-hue-green), 90%, 46%);
+    --sl-color-green-low: hsl(var(--sl-hue-green), 85%, 90%);
+    --sl-color-blue-high: hsl(var(--sl-hue-blue), 80%, 30%);
+    --sl-color-blue: hsl(var(--sl-hue-blue), 90%, 60%);
+    --sl-color-blue-low: hsl(var(--sl-hue-blue), 88%, 90%);
+    --sl-color-purple-high: hsl(var(--sl-hue-purple), 90%, 30%);
+    --sl-color-purple: hsl(var(--sl-hue-purple), 90%, 60%);
+    --sl-color-purple-low: hsl(var(--sl-hue-purple), 80%, 90%);
+    --sl-color-red-high: hsl(var(--sl-hue-red), 80%, 30%);
+    --sl-color-red: hsl(var(--sl-hue-red), 90%, 60%);
+    --sl-color-red-low: hsl(var(--sl-hue-red), 80%, 90%);
+
+    --sl-color-accent-high: hsl(234, 80%, 30%);
+    --sl-color-accent: hsl(234, 90%, 60%);
+    --sl-color-accent-low: hsl(234, 88%, 90%);
+
+    --sl-color-text-accent: var(--sl-color-accent);
+    --sl-color-text-invert: var(--sl-color-black);
+    --sl-color-bg-nav: var(--sl-color-gray-7);
+    --sl-color-bg-sidebar: var(--sl-color-bg);
+    --sl-color-bg-inline-code: var(--sl-color-gray-6);
+    --sl-color-bg-accent: var(--sl-color-accent);
+    --sl-color-hairline-light: var(--sl-color-gray-6);
+    --sl-color-hairline-shade: var(--sl-color-gray-6);
+
+    --sl-color-backdrop-overlay: hsla(225, 9%, 36%, 0.66);
+
+    /* Shadows (light mode) */
+    --sl-shadow-sm: 0px 1px 1px hsla(0, 0%, 0%, 0.06),
+      0px 2px 1px hsla(0, 0%, 0%, 0.06);
+    --sl-shadow-md: 0px 8px 4px hsla(0, 0%, 0%, 0.03),
+      0px 5px 2px hsla(0, 0%, 0%, 0.03), 0px 3px 2px hsla(0, 0%, 0%, 0.06),
+      0px 1px 1px hsla(0, 0%, 0%, 0.06);
+    --sl-shadow-lg: 0px 25px 7px rgba(0, 0, 0, 0.01),
+      0px 16px 6px hsla(0, 0%, 0%, 0.03), 0px 9px 5px hsla(223, 13%, 10%, 0.08),
+      0px 4px 4px hsla(0, 0%, 0%, 0.16), 0px 4px 2px hsla(0, 0%, 0%, 0.04);
   }
 
   :root.dark {
@@ -25,6 +82,73 @@
     --theme-surface: #2f2f2f;
     --theme-quote: #93e1d4;
     --theme-highlight: #93e1d4;
+    --sl-color-white: hsl(0, 0%, 100%); /* “white” */
+    --sl-color-gray-1: hsl(224, 20%, 94%);
+    --sl-color-gray-2: hsl(224, 6%, 77%);
+    --sl-color-gray-3: hsl(224, 6%, 56%);
+    --sl-color-gray-4: hsl(224, 7%, 36%);
+    --sl-color-gray-5: hsl(224, 10%, 23%);
+    --sl-color-gray-6: hsl(224, 14%, 16%);
+    --sl-color-black: hsl(224, 10%, 10%);
+
+    --sl-hue-orange: 41;
+    --sl-color-orange-low: hsl(var(--sl-hue-orange), 39%, 22%);
+    --sl-color-orange: hsl(var(--sl-hue-orange), 82%, 63%);
+    --sl-color-orange-high: hsl(var(--sl-hue-orange), 82%, 87%);
+    --sl-hue-green: 101;
+    --sl-color-green-low: hsl(var(--sl-hue-green), 39%, 22%);
+    --sl-color-green: hsl(var(--sl-hue-green), 82%, 63%);
+    --sl-color-green-high: hsl(var(--sl-hue-green), 82%, 80%);
+    --sl-hue-blue: 234;
+    --sl-color-blue-low: hsl(var(--sl-hue-blue), 54%, 20%);
+    --sl-color-blue: hsl(var(--sl-hue-blue), 100%, 60%);
+    --sl-color-blue-high: hsl(var(--sl-hue-blue), 100%, 87%);
+    --sl-hue-purple: 281;
+    --sl-color-purple-low: hsl(var(--sl-hue-purple), 39%, 22%);
+    --sl-color-purple: hsl(var(--sl-hue-purple), 82%, 63%);
+    --sl-color-purple-high: hsl(var(--sl-hue-purple), 82%, 89%);
+    --sl-hue-red: 339;
+    --sl-color-red-low: hsl(var(--sl-hue-red), 39%, 22%);
+    --sl-color-red: hsl(var(--sl-hue-red), 82%, 63%);
+    --sl-color-red-high: hsl(var(--sl-hue-red), 82%, 87%);
+
+    --sl-color-accent-low: hsl(224, 54%, 20%);
+    --sl-color-accent: hsl(224, 100%, 60%);
+    --sl-color-accent-high: hsl(224, 100%, 85%);
+
+    --sl-color-text: var(--sl-color-gray-2);
+    --sl-color-text-accent: var(--sl-color-accent-high);
+    --sl-color-text-invert: var(--sl-color-accent-low);
+    --sl-color-bg: var(--sl-color-black);
+    --sl-color-bg-nav: var(--sl-color-gray-6);
+    --sl-color-bg-sidebar: var(--sl-color-gray-6);
+    --sl-color-bg-inline-code: var(--sl-color-gray-5);
+    --sl-color-bg-accent: var(--sl-color-accent-high);
+    --sl-color-hairline-light: var(--sl-color-gray-5);
+    --sl-color-hairline: var(--sl-color-gray-6);
+    --sl-color-hairline-shade: var(--sl-color-black);
+
+    --sl-color-backdrop-overlay: hsla(223, 13%, 10%, 0.66);
+
+    /* Shadows (dark mode) */
+    --sl-shadow-sm: 0px 1px 1px hsla(0, 0%, 0%, 0.12),
+      0px 2px 1px hsla(0, 0%, 0%, 0.24);
+    --sl-shadow-md: 0px 8px 4px hsla(0, 0%, 0%, 0.08),
+      0px 5px 2px hsla(0, 0%, 0%, 0.08), 0px 3px 2px hsla(0, 0%, 0%, 0.12),
+      0px 1px 1px hsla(0, 0%, 0%, 0.15);
+    --sl-shadow-lg: 0px 25px 7px hsla(0, 0%, 0%, 0.03),
+      0px 16px 6px hsla(0, 0%, 0%, 0.1), 0px 9px 5px hsla(223, 13%, 10%, 0.33),
+      0px 4px 4px hsla(0, 0%, 0%, 0.75), 0px 4px 2px hsla(0, 0%, 0%, 0.25);
+
+    .astro-code,
+    .astro-code span {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      /* Optional, if you also want font styles */
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
   }
 
   html {
@@ -137,7 +261,7 @@
 
   .tag:before {
     content: "#";
-    @apply -mr-2;
+    @apply mr-0;
   }
 
   .cody-link {
@@ -195,4 +319,57 @@
   .fade-out {
     @apply transition-opacity duration-700 ease-in opacity-0 duration-700;
   }
+}
+
+.starlight-aside {
+  padding: 1rem;
+  border-inline-start: 0.25rem solid var(--sl-color-asides-border);
+  color: var(--sl-color-white);
+  margin: 1rem;
+}
+
+.starlight-aside--note {
+  --sl-color-asides-text-accent: var(--sl-color-blue-high);
+  --sl-color-asides-border: var(--sl-color-blue);
+  background-color: var(--sl-color-blue-low);
+}
+
+.starlight-aside--tip {
+  --sl-color-asides-text-accent: var(--sl-color-green-high);
+  --sl-color-asides-border: var(--sl-color-green);
+  background-color: var(--sl-color-green-low);
+}
+.starlight-aside--caution {
+  --sl-color-asides-text-accent: var(--sl-color-orange-high);
+  --sl-color-asides-border: var(--sl-color-orange);
+  background-color: var(--sl-color-orange-low);
+}
+.starlight-aside--danger {
+  --sl-color-asides-text-accent: var(--sl-color-red-high);
+  --sl-color-asides-border: var(--sl-color-red);
+  background-color: var(--sl-color-red-low);
+}
+
+.starlight-aside__title {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: var(--sl-text-h5);
+  font-weight: 600;
+  line-height: var(--sl-line-height-headings);
+  color: var(--sl-color-asides-text-accent);
+}
+
+.starlight-aside__icon {
+  font-size: 1.333em;
+  width: 1em;
+  height: 1em;
+}
+
+.starlight-aside__title + .starlight-aside__content {
+  margin-top: 0.5rem;
+}
+
+.starlight-aside__content a {
+  color: var(--sl-color-asides-text-accent);
 }

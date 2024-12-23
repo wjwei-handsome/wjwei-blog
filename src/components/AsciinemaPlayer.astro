@@ -1,0 +1,102 @@
+---
+type Props = {
+  src: string; // Asciinema cast 文件的 URL
+  theme?: string; // 播放器主题，默认为 'asciinema'
+  autoPlay?: boolean; // 是否自动播放
+  loop?: boolean; // 是否循环播放
+  cols?: number; // 自定义列数
+  rows?: number; // 自定义行数
+  class?: string; // 自定义类名
+};
+
+const {
+  src,
+  theme = 'asciinema',
+  autoPlay = false,
+  loop = false,
+  cols,
+  rows,
+  class: className = '',
+} = Astro.props;
+---
+
+<head>
+  <!-- 引入 Asciinema Player 的样式 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asciinema-player@3.0.0/dist/bundle/asciinema-player.css" />
+</head>
+
+<!-- 播放器容器 -->
+<div
+  class={`asciinema-player-container ${className}`}
+  data-src={`${src}.cast`}
+  data-theme={theme}
+  data-autoplay={autoPlay ? 'true' : 'false'}
+  data-loop={loop ? 'true' : 'false'}
+  data-cols={cols}
+  data-rows={rows}
+></div>
+
+<script>
+ declare global {
+    interface Window {
+      asciinemaPlayerLoaded?: boolean;
+      AsciinemaPlayer: {
+        create(
+          src: string,
+          element: HTMLElement,
+          options?: {
+            theme?: string;
+            autoplay?: boolean;
+            loop?: boolean;
+            cols?: number;
+            rows?: number;
+          }
+        ): void;
+      }
+    }
+  }
+
+  // 动态加载 Asciinema Player 脚本
+  if (!window.asciinemaPlayerLoaded) {
+    const script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/asciinema-player@3.0.0/dist/bundle/asciinema-player.min.js";
+    script.onload = () => {
+      window.asciinemaPlayerLoaded = true;
+      initializePlayers();
+    };
+    document.body.appendChild(script);
+  } else {
+    initializePlayers();
+  }
+
+  // 初始化所有播放器
+  function initializePlayers() {
+      // 使用类型断言来指定正确的元素类型
+      const containers = Array.from(
+        document.querySelectorAll('.asciinema-player-container')
+      ).map(el => el as HTMLDivElement);
+
+      containers.forEach(container => {
+        if (!container.dataset.initialized) {
+          container.dataset.initialized = 'true';
+          if (container.dataset.src) {
+            window.AsciinemaPlayer.create(
+              container.dataset.src,
+              container,
+              {
+                theme: container.dataset.theme || undefined,
+                autoplay: container.dataset.autoplay === 'true',
+                loop: container.dataset.loop === 'true',
+                cols: container.dataset.cols
+                  ? parseInt(container.dataset.cols, 10)
+                  : undefined,
+                rows: container.dataset.rows
+                  ? parseInt(container.dataset.rows, 10)
+                  : undefined,
+              }
+            );
+          }
+        }
+      });
+    }
+</script>

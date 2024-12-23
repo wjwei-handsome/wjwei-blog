@@ -1,5 +1,6 @@
 export { getFormattedDate } from "./date";
 export { remarkReadingTime } from "./remark-reading-time.mjs";
+export { remarkDirectivesRestoration } from "./remark-admon";
 export { getAllTags, getUniqueTags, getUniqueTagsWithCount } from "./tags";
 export {
   getAllPosts,

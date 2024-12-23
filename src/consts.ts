@@ -40,7 +40,7 @@ export const siteConfig: Config = {
     description: ui["profile.description"].text,
   },
   settings: {
-    paginationSize: 5,
+    paginationSize: 10,
   },
 };
 

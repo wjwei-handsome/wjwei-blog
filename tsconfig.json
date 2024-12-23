@@ -11,5 +11,5 @@
       "@/styles/*": ["src/styles/*.css"]
     }
   },
-  "include": ["src", "*.ts"]
+  "include": ["src", "*.ts", "src/**/*.ts", "src/**/*.d.ts", "src/**/*.astro"]
 }
