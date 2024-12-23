@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build && npx pagefind --site dist",
+    "build": "npm run playwright-install && astro check && astro build && npx pagefind --site dist",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "playwright-install": "npm install -D @playwright/test@latest && npx playwright install --with-deps"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -24,7 +25,6 @@
     "mdast-util-directive": "^3.0.0",
     "mdast-util-to-string": "^4.0.0",
     "pagefind": "^1.3.0",
-    "playwright": "^1.49.1",
     "reading-time": "^1.5.0",
     "rehype-katex": "^7.0.1",
     "remark-directive": "^3.0.0",
@@ -34,6 +34,7 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.1",
     "@tailwindcss/typography": "^0.5.10"
   }
 }
