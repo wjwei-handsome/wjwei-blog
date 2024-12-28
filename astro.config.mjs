@@ -57,7 +57,7 @@ export default defineConfig({
 
   markdown: {
     remarkPlugins: [remarkReadingTime],
-    rehypePlugins: [rehypeMermaid, rehypeShiki],
+    rehypePlugins: [rehypeKatex, rehypeMermaid, rehypeShiki],
     syntaxHighlight: "shiki",
     shikiConfig: {
       // https://docs.astro.build/en/guides/markdown-content/#syntax-highlighting

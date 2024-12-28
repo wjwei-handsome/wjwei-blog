@@ -10,10 +10,10 @@ export default {
     text: "WenjieWei Blog",
   },
   "site.description": {
-    text: "A minimalist blog theme built with Astro. A quick and easy starter build for anyone who wants to start their own blog.",
+    text: "WenjieWei's personal blog",
   },
   "profile.description": {
-    text: "your bio description",
+    text: "Ph.D student in JianYang-Lab, Genomics & Genetics ",
   },
   "blog.lastUpdated": {
     text: "Last updated:",
