@@ -1,0 +1,103 @@
+<div id="giscuss-container" class="mx-auto mt-8"></div>
+
+<script>
+  const getTheme = () => {
+    // 首先检查 localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme;
+    }
+
+    // 然后检查系统偏好
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+
+    return 'light';
+  };
+
+  const initGiscus = () => {
+    const container = document.querySelector("#giscuss-container");
+    if (container?.hasChildNodes()) {
+      return; // 如果已经初始化过，就不再初始化
+    }
+
+    const currentTheme = getTheme();
+    const script = document.createElement("script");
+
+    Object.entries({
+      src: "https://giscus.app/client.js",
+      "data-repo": "wjwei-handsome/wjwei-docusaurus",
+      "data-repo-id": "R_kgDOIB2dAQ",
+      "data-category": "General",
+      "data-category-id": "DIC_kwDOIB2dAc4CRiFZ",
+      "data-mapping": "pathname",
+      "data-strict": "0",
+      "data-reactions-enabled": "1",
+      "data-emit-metadata": "0",
+      "data-input-position": "bottom",
+      "data-theme": currentTheme === 'dark' ? 'dark' : 'light',
+      "data-lang": "en",
+      "data-loading": "lazy",
+      crossorigin: "anonymous",
+    }).forEach(([key, value]) => {
+      script.setAttribute(key, value);
+    });
+    script.setAttribute("async", "true");
+
+    container?.appendChild(script);
+  };
+
+  const updateGiscusTheme = () => {
+    const theme = getTheme();
+    const giscusTheme = theme === 'dark' ? 'dark' : 'light';
+
+    const iframe = document.querySelector('.giscus-frame') as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: giscusTheme } } },
+        'https://giscus.app'
+      );
+    }
+  };
+
+  // 等待 DOM 和主题完全加载后再初始化
+  document.addEventListener('DOMContentLoaded', () => {
+    // 给主题加载一个小延迟，确保主题状态已经准备好
+    setTimeout(() => {
+      initGiscus();
+    }, 100);
+  });
+
+  // 监听系统主题变化
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateGiscusTheme);
+  }
+
+  // 监听本地存储变化
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'theme') {
+      updateGiscusTheme();
+    }
+  });
+
+  // 监听主题变化
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'data-theme' || mutation.attributeName === 'class') {
+        updateGiscusTheme();
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true
+  });
+
+  // 监听 Astro 视图转换
+  document.addEventListener('astro:after-swap', () => {
+    setTimeout(() => {
+      initGiscus();
+    }, 100);
+  });
+</script>

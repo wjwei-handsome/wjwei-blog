@@ -8,6 +8,7 @@ import {
 } from "@/utils";
 import { getSupportedLanguages, type SupportedLanguage } from "src/utils/i18n";
 import type { CollectionEntry } from "astro:content";
+import Comments from "@/components/Comments";
 
 export const getStaticPaths = (async () => {
 	const blogEntries = await getAllPosts();
@@ -36,4 +37,5 @@ const { Content } = await post.render();
 
 <BlogPost post={post as CollectionEntry<"blog">}>
 	<Content />
+	<Comments />
 </BlogPost>
