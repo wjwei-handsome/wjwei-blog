@@ -12,6 +12,7 @@ import {
 import expressiveCode from "astro-expressive-code";
 import { rehypeShiki } from "@astrojs/markdown-remark";
 import rehypeMermaid from "rehype-mermaid";
+import partytown from "@astrojs/partytown";
 
 // import expressiveCode from "astro-expressive-code";
 // import remarkMermaid from "remark-mermaidjs";
@@ -41,6 +42,11 @@ export default defineConfig({
     }),
     sitemap(),
     tailwind(),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
   ],
   // NOTE: Make sure this matches your supported languages in the file: src/consts.ts
   i18n: {

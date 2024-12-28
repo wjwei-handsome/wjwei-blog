@@ -21,6 +21,15 @@ const {
 <!doctype html>
 <html lang={Astro.currentLocale} class="dark">
 	<head>
+	     <!-- Google tag (gtag.js) -->
+        <script is:inline type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-MMW29HLBNX"></script>
+        <script type="text/partytown" is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-KM36S70L8Y');
+        </script>
 		<BaseHead title={title} description={description} image={image} />
 	</head>
 	<body>
