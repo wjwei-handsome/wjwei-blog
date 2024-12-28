@@ -68,7 +68,7 @@ export const SOCIAL_LINKS: Array<SocialLink> = [
   {
     icon: "mdi:wechat",
     friendlyName: "rss",
-    link: "/wec.html",
+    link: "/wec",
   },
 ];
 
@@ -80,4 +80,5 @@ export const NAV_LINKS: Array<keyof typeof nav> = [
   "archive",
   "series",
   "tags",
+  // "wec",
 ];

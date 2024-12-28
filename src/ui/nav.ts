@@ -33,6 +33,10 @@ export default {
     text: "Series",
     slug: "series",
   },
+  // wec: {
+  //   text: "WEC",
+  //   slug: "wec",
+  // },
 } as const satisfies NavEntries;
 
 type NavEntries = Record<string, NavEntry>;

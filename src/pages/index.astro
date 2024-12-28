@@ -1,51 +1,7 @@
 ---
 import BaseLayout from "@/layouts/Base";
 import SocialMediaLinks from "@/components/SocialMediaLinks";
-import {
-	filterByLanguage,
-	getAllPosts,
-	sortMDByDate,
-	sortMDByPinned,
-} from "@/utils";
 
-const MAX_POSTS = 10;
-const allPosts = await getAllPosts();
-const allPostsByDate = sortMDByDate(allPosts);
-const allPostsByPinned = sortMDByPinned(allPostsByDate);
-const filteredPostsByLanguage = filterByLanguage(allPostsByPinned, "en").slice(0, MAX_POSTS);
-
-// const tech: Array<{ title: string; desc: string; href: string }> = [
-// 	{
-// 		title: "Astro",
-// 		desc: "Crea sitios web rápidos, más rápido.",
-// 		href: "https://astro.build",
-// 	},
-// 	{
-// 		title: "Astro Assets",
-// 		desc: "Compatibilidad con activos optimizados integrados.",
-// 		href: "https://docs.astro.build/en/guides/assets/",
-// 	},
-// 	{
-// 		title: "Tailwind CSS",
-// 		desc: "Crea sitios web modernos rápidamente sin tener que abandonar el HTML.",
-// 		href: "https://tailwindcss.com",
-// 	},
-// 	{
-// 		title: "Markdown",
-// 		desc: "Lenguaje de marcado simple y fácil de usar.",
-// 		href: "https://www.markdownguide.org/",
-// 	},
-// 	{
-// 		title: "MDX",
-// 		desc: "Markdown para la era de los componentes.",
-// 		href: "https://mdxjs.com/",
-// 	},
-// 	{
-// 		title: "Astro Icon",
-// 		desc: "Un componente de ícono fácil de usar para Astro.",
-// 		href: "https://github.com/natemoo-re/astro-icon#readme",
-// 	},
-// ];
 ---
 
 <BaseLayout title="Home">
@@ -55,7 +11,7 @@ const filteredPostsByLanguage = filterByLanguage(allPostsByPinned, "en").slice(0
     <hr />
     <section>
     <div>
-			<span>Puedes encontrarme en:</span>
+			<span>You can find me in:</span>
 			<SocialMediaLinks />
 	</div>
 	</section>
@@ -97,7 +53,7 @@ const filteredPostsByLanguage = filterByLanguage(allPostsByPinned, "en").slice(0
   // 等待 DOM 和外部脚本加载完成
   window.addEventListener("load", function () {
     new TypeIt("#typing-area", {  // 修改为正确的选择器
-      speed: 1,               // 可选：调整打字速度
+      speed: 150,               // 可选：调整打字速度
       waitUntilVisible: true,  // 可选：等到元素可见时才开始
       cursor: true,
       breakLines: false,
