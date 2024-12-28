@@ -68,7 +68,7 @@ export const SOCIAL_LINKS: Array<SocialLink> = [
   {
     icon: "mdi:wechat",
     friendlyName: "rss",
-    link: "/rss.xml",
+    link: "/wec.html",
   },
 ];
 

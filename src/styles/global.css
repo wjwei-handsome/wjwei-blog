@@ -300,6 +300,18 @@
     @apply text-lg font-bold mb-4;
   }
 
+  .typing {
+    @apply font-medium text-sm mb-4 mr-1;
+  }
+
+  .typingvar {
+    @apply font-medium text-sm mb-4 mr-1 text-pink-500;
+  }
+
+  .typingcmd {
+    @apply font-medium text-sm mb-4 mr-1 text-blue-500;
+  }
+
   hr {
     @apply border-accent border-dashed my-6;
   }

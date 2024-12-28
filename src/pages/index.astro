@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "@/layouts/Base";
-import PostPreview from "@/components/blog/PostPreviewB";
 import SocialMediaLinks from "@/components/SocialMediaLinks";
 import {
 	filterByLanguage,
@@ -8,7 +7,6 @@ import {
 	sortMDByDate,
 	sortMDByPinned,
 } from "@/utils";
-import type { CollectionEntry } from "astro:content";
 
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
@@ -16,42 +14,52 @@ const allPostsByDate = sortMDByDate(allPosts);
 const allPostsByPinned = sortMDByPinned(allPostsByDate);
 const filteredPostsByLanguage = filterByLanguage(allPostsByPinned, "en").slice(0, MAX_POSTS);
 
-const tech: Array<{ title: string; desc: string; href: string }> = [
-	{
-		title: "Astro",
-		desc: "Crea sitios web rápidos, más rápido.",
-		href: "https://astro.build",
-	},
-	{
-		title: "Astro Assets",
-		desc: "Compatibilidad con activos optimizados integrados.",
-		href: "https://docs.astro.build/en/guides/assets/",
-	},
-	{
-		title: "Tailwind CSS",
-		desc: "Crea sitios web modernos rápidamente sin tener que abandonar el HTML.",
-		href: "https://tailwindcss.com",
-	},
-	{
-		title: "Markdown",
-		desc: "Lenguaje de marcado simple y fácil de usar.",
-		href: "https://www.markdownguide.org/",
-	},
-	{
-		title: "MDX",
-		desc: "Markdown para la era de los componentes.",
-		href: "https://mdxjs.com/",
-	},
-	{
-		title: "Astro Icon",
-		desc: "Un componente de ícono fácil de usar para Astro.",
-		href: "https://github.com/natemoo-re/astro-icon#readme",
-	},
-];
+// const tech: Array<{ title: string; desc: string; href: string }> = [
+// 	{
+// 		title: "Astro",
+// 		desc: "Crea sitios web rápidos, más rápido.",
+// 		href: "https://astro.build",
+// 	},
+// 	{
+// 		title: "Astro Assets",
+// 		desc: "Compatibilidad con activos optimizados integrados.",
+// 		href: "https://docs.astro.build/en/guides/assets/",
+// 	},
+// 	{
+// 		title: "Tailwind CSS",
+// 		desc: "Crea sitios web modernos rápidamente sin tener que abandonar el HTML.",
+// 		href: "https://tailwindcss.com",
+// 	},
+// 	{
+// 		title: "Markdown",
+// 		desc: "Lenguaje de marcado simple y fácil de usar.",
+// 		href: "https://www.markdownguide.org/",
+// 	},
+// 	{
+// 		title: "MDX",
+// 		desc: "Markdown para la era de los componentes.",
+// 		href: "https://mdxjs.com/",
+// 	},
+// 	{
+// 		title: "Astro Icon",
+// 		desc: "Un componente de ícono fácil de usar para Astro.",
+// 		href: "https://github.com/natemoo-re/astro-icon#readme",
+// 	},
+// ];
 ---
 
 <BaseLayout title="Home">
-	<section>
+    <section>
+    <h1 id="typing-area" class="typing"></h1>
+    </section>
+    <hr />
+    <section>
+    <div>
+			<span>Puedes encontrarme en:</span>
+			<SocialMediaLinks />
+	</div>
+	</section>
+	<!-- <section>
 		<h1 class="title">Hello World</h1>
 		<p class="mb-4 sm:mb-8">
 			¡Hola a todos! Este es un tema para Astro. Pueden usarlo como blog
@@ -63,9 +71,8 @@ const tech: Array<{ title: string; desc: string; href: string }> = [
 			<span>Puedes encontrarme en:</span>
 			<SocialMediaLinks />
 		</div>
-	</section>
-
-	<section class="mt-8 sm:mt-16">
+	</section> -->
+	<!-- <section class="mt-8 sm:mt-16">
 		<h2 class="title">Posts</h2>
 		<ul class="space-y-4 sm:space-y-2">
 			{
@@ -74,31 +81,86 @@ const tech: Array<{ title: string; desc: string; href: string }> = [
 				))
 			}
 		</ul>
-	</section>
-
-	<section class="mt-16 mb-4">
-		<h2 class="title">Technologies</h2>
-		<ul class="space-y-4 sm:space-y-2">
-			{
-				tech.map(({ href, title, desc }) => (
-					<li>
-						<a
-							href={href}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="cody-link inline-block"
-						>
-							{title}
-						</a>
-						: <p class="inline-block sm:mt-2">{desc}</p>
-					</li>
-				))
-			}
-		</ul>
-	</section>
-
-	<hr />
+	</section> -->
+	<!-- <hr />
 	<section class="">
 		<p>Esto fue traducido usando Google Translate</p>
-	</section>
+	</section> -->
+
+
+
 </BaseLayout>
+
+<script>
+  import TypeIt from "typeit";
+
+  // 等待 DOM 和外部脚本加载完成
+  window.addEventListener("load", function () {
+    new TypeIt("#typing-area", {  // 修改为正确的选择器
+      speed: 1,               // 可选：调整打字速度
+      waitUntilVisible: true,  // 可选：等到元素可见时才开始
+      cursor: true,
+      breakLines: false,
+    }).
+    type('❯ <span class="typingcmd">wjwei</span> --help').
+    pause(500).
+    break({instant: true}).
+    break({instant: true}).
+    type("Name: Wenjie Wei", {instant: true}).
+    break({instant: true}).
+    type("Version: 2024", {instant: true}).
+    break({instant: true}).
+    type('Usage: wjwei [OPTIONS] <', {instant: true}).
+    type('COMMANDS>', {instant: true}).
+    break({instant: true}).
+    type("Commands:", {instant: true}).
+    break({instant: true}).
+    type('<span>&nbsp;&nbsp;</span>🧬bioinfo:', {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Play biological problems with code. Years of experience in bioinformatics analysis", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>🛠️coder:", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Get my hands dirty! Always be a rookie and stay hungry. Enjoy contributing to the community.", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>🙌life:", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Work hard, play harder! Enjoy dopamine and endorphins from nature🏞, food🥑, coffee☕️, movies🎥, music🎧 and sports🏋.", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>👨‍🎓student:", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Master of Crop genomics in the National Laboratory of Crop Genetic Improvement, HZAU.", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>PhD student of WestLake University.", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Interested in: [genomics, genetics, tools, databases].", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>🎮gamer:", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Hundreds of hours of Zelda/Pokemon/Stardew Valley.", {instant: true}).
+    break({instant: true}).
+    type("Options:", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-l, --linux\t💻Unix/Commmand Line/Fish enthusiast\t[default: true]", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-r, --rust\t🦀YES! I'm a Rustacean!\t[default: true]", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-p, --python\t🐍A cold weapon still in hand with me.\t[default: true]", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-v, --visualize\t📊Prefer vega-lite/R for data presentation.\t[default: true]", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-f, --frontend\t🌐Stay at the basic stage for Vue/React\t[default: false]", {instant: true}).
+    break({instant: true}).
+    type("<span>&nbsp;&nbsp;</span>-h, --haskell\t🧸Elegant new toys, not yet familiar\t[default: false]", {instant: true}).
+    break({instant: true}).
+    break({instant: true}).
+    type('❯ <span class="typingcmd">echo</span> <span class="typingvar">$MOTTO</span>').
+    break({instant: true}).
+    type("A ship in a harbour is safe but that is not what ships are built for.", {instant: true}).
+    break({instant: true}).
+    break({instant: true}).
+    type('❯ ').
+
+    go();
+  });
+</script>
