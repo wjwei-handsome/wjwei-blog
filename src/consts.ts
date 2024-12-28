@@ -70,6 +70,11 @@ export const SOCIAL_LINKS: Array<SocialLink> = [
     friendlyName: "rss",
     link: "/wec",
   },
+  {
+    icon: "mdi:school",
+    friendlyName: "scholar",
+    link: "https://scholar.google.com/citations?user=AO4Qqk4AAAAJ",
+  },
 ];
 
 // NOTE: match these entries with keys in `src/i18n/nav.ts`

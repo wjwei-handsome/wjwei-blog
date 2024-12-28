@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Base";
+import SocialMediaLinks from "@/components/SocialMediaLinks";
 ---
 
 <Layout
@@ -9,48 +10,51 @@ import Layout from "@/layouts/Base";
 >
 	<h1 class="title">About me</h1>
 	<p>
-		Hola, soy un tema Astro. Soy particularmente bueno para comenzar un blog
-		o un portafolio.中文支持也不错吧
+	Wenjie Wei
 	</p>
-	<div>
-		Me basé en otros dos temas:
-		<a
-			class="cody-link"
-			href="https://astro-theme-cactus.netlify.app"
-			target="_blank"
-			rel="noopener noreferrer">Astro Cactus</a
-		>
-		y
-		<a
-			class="cody-link"
-			target="_blank"
-			rel="noopener noreferrer"
-			href="https://risotto.joeroe.io">Risotto</a
-		>.
-	</div>
+	<p>
+	魏文杰
+	</p>
 
-	<h2 class="title mt-4">
-		A continuación, se muestran mis características integradas:
-	</h2>
+
+	<h1 class="title mt-2">Educations</h1>
 	<ul class="list-inside list-disc">
-		<li>Se ve genial en cualquier dispositivo</li>
-		<li>Totalmente responsivo</li>
-		<li>Viene con en modo claro y oscuro</li>
-		<li>Fácil de personalizar y agregar contenido</li>
-		<li>Construido con tailwindcss</li>
-		<li>Fija publicaciones y proyectos</li>
-	</ul>
-	<p class="mt-4">
-		¡Clona o bifurca mi
-		<a
+		<li>2017-2021, B.S in HZAU, Plant Science and Technology </li>
+		<li>2021-2024, M.S in HZAU, Crop Genetics and Breeding (<a
 			class="cody-link inline-block"
-			href="https://github.com/kirontoo/astro-theme-cody"
+			href="http://maizego.org/"
 			target="_blank"
 			rel="noopener noreferrer"
-			aria-label="github repository"
 		>
-			repositorio
-		</a>
-		si te gusto!
-	</p>
+		YanLab
+		</a>)
+		</li>
+		<li>2024-Now, Ph.D in Westlake University, Life science (<a
+			class="cody-link inline-block"
+			href="https://yanglab.westlake.edu.cn/"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+		YangLab
+		</a>)
+		</li>
+	</ul>
+	<h1 class="title mt-2">Research Interest:</h1>
+	   <ul class="list-inside list-disc">
+			<li>Graph Pan-genome Methodology</li>
+			<li>Complex Trait ~ Multi Omics</li>
+			<li>High performance tools development</li>
+
+		</ul>
+	<h1 class="title mt-2">I'm contributing to the community:</h1>
+	<img src="https://github-readme-stats.vercel.app/api?username=wjwei-handsome&include_all_commits=false&theme=swift&show_icons=true&count_private=true&include_orgs=true" alt="">
+
+	<h1 class="title mt-2">Which language I prefer:</h1>
+	<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=wjwei-handsome&layout=compact&theme=swift" alt="">
+
+	<hr />
+    <div>
+    <span>You can find me in:</span>
+        <SocialMediaLinks />
+    </div>
 </Layout>
