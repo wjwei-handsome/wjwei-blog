@@ -13,6 +13,8 @@ series: Python
   src="https://img.shields.io/badge/Author-WenjieWei-ff69b4?style=for-the-badge&logo=appveyor"
 />
 
+import Mermaid from "../../../components/Mermaid.astro"
+
 ## 背景
 
 在其他语言中，比如 C 语言，经常能听到内存管理的问题，比如内存泄漏，内存溢出等等。而在 Python 中，这些问题很少在一些入门初级教程中提到，甚至有些教程甚至不提及这些问题。但是，这些问题在 Python 中也是存在的，只是 Python 中的内存管理机制使得这些问题很少被摆到台面上让用户操作。在这里我以个人粗浅的理解来谈谈 Python 中的内存管理。
@@ -33,7 +35,7 @@ Python 基本不让用户直接管理内存，比如预先分配内存，或者�
 
 当我们创建了一个新变量，如 `wwj_string = "Fuck World!"` 时，这个变量的名称会被添加到所在范围（作用域）的命名空间中，在本文中为了简单，假设都发生在全局命名空间中（有关作用域介绍，见下方 [tips](# 作用域 -variable-scope)）。
 
-在该例子中，**wwj_string** 就是指针，内存中的对象是一个值为 **"FUck World!"** 的字符串。
+在该例子中，**wwj_string**就是指针，内存中的对象是一个值为**"FUck World!"** 的字符串。
 
 :::caution[注意 ⚠️]
 
@@ -42,6 +44,15 @@ Python 基本不让用户直接管理内存，比如预先分配内存，或者�
 :::
 当我们创建一个 list: `my_lst = ['string, 42]`
 
+<Mermaid>
+```mermaid
+flowchart LR
+    Start --> Stop
+```
+</Mermaid>
+
+
+<Mermaid>
 ```mermaid
 graph LR;
     A(<font size=20>entry in namespace:<br>a);
@@ -56,6 +67,7 @@ graph LR;
     class A,B clsA;
     class C,D clsB
 ```
+</Mermaid>
 
 如上图所示，**my_lst** 是一个指针，指向一个 list 对象，该对象包含两个指针，分别指向两个对象，一个是字符串对象，一个是 int 对象。
 
@@ -84,6 +96,7 @@ b[0] = "new string"
 
 实际上，我们在第 5 行，并没有定义创建一个新的 list 对象，而是创建了一个指针，指向了 a 指向的对象，这时候 a 和 b 指向同一个对象。
 
+<Mermaid>
 ```mermaid
 graph LR;
     A(<font size=20>entry in namespace:<br>a);
@@ -100,6 +113,7 @@ graph LR;
     class A,B,E clsA;
     class C,D clsB
 ```
+</Mermaid>
 
 所以当我们改变 b[0] 时，a[0] 也会被改变。
 
@@ -116,6 +130,7 @@ c[0] = "new string"
 ['string', 42]
 ```
 
+<Mermaid>
 ```mermaid
 graph LR;
     A(<font size=20>entry in namespace:<br>a);
@@ -136,6 +151,7 @@ graph LR;
     class A,B,E clsA;
     class C,D clsB
 ```
+</Mermaid>
 
 但是，如果我们 list 中的元素也是个 list 呢？
 
@@ -153,6 +169,7 @@ b[1][0] = 42
 
 这就和上一个例子不一样，但是我们仔细把逻辑理清楚：
 
+<Mermaid>
 ```mermaid
 flowchart LR;
     subgraph two;
@@ -189,6 +206,7 @@ flowchart LR;
     end;
     two-->one
 ```
+</Mermaid>
 
 相当于说，我们的 `copy` 方法，只拷贝了一层，而没有拷贝更深层的对象。这就是所谓的浅拷贝 `shallow copy`
 对应的，还有个方法是深拷贝 `deep copy`，它会递归地创建它遇到的每个对象的船新版本，有了上述例子，这个就很好理解了。
@@ -206,8 +224,6 @@ c[0][0] = 42
 :::tip
 
 在上述例子中，我们 a，c 两个 list 中的 a[0][1],a[0][2] 和 c[0][1],c[0][2] 都是同一个对象，因为 python 存在一些内存优化机制，防止创建不需要的、相同的不可变对象，但是如果该对象为用户定义的类时，深拷贝会创建对象的新实例。
-
-:::
 
 :::tip
 
@@ -336,7 +352,7 @@ TypeError: 'tuple' object does not support item assignment
 ```
 
 **ridiculous!?**，明明报错，但是却实现了？
-仔细分析，对照上文说过的两步操作，可以发现，错误发生在第二步，也就是我们不能直接分配给 a[0]，因为它是元组的元素。但是为什么最终实现了呢？因为我们的第一步是没毛病的，我们在原对象上（list）进行了改变，这是我们预期的结果。所以第一步是 OK 的，但是执行第二步的时候，把指针分配给 a[0] 的时候，就报错了。所以我们分别得到了：** 预期的变化 ** 和 ** 报错 **。
+仔细分析，对照上文说过的两步操作，可以发现，错误发生在第二步，也就是我们不能直接分配给 a[0]，因为它是元组的元素。但是为什么最终实现了呢？因为我们的第一步是没毛病的，我们在原对象上（list）进行了改变，这是我们预期的结果。所以第一步是 OK 的，但是执行第二步的时候，把指针分配给 a[0] 的时候，就报错了。所以我们分别得到了：**预期的变化** 和 **报错**。
 
 ## 什么是 `=`？
 
@@ -416,7 +432,7 @@ class MyClass:
 
 ### 引用计数 Reference counting
 
-当我们有一个指向某个实例的指针，那么这个实例就有了一个 ** 引用 **，对于该实例，CPython 会跟踪有多少引用指向它，如果计数器为 0，那么这个实例就可以被销毁了。在创建上面那个类的前提下，举如下例子：
+当我们有一个指向某个实例的指针，那么这个实例就有了一个 **引用**，对于该实例，CPython 会跟踪有多少引用指向它，如果计数器为 0，那么这个实例就可以被销毁了。在创建上面那个类的前提下，举如下例子：
 
 ```python showLineNumbers
 >>> wwj = MyClass('wwj')
@@ -520,7 +536,7 @@ Deleting xh!
 
 在输出中，我们终于看到了两个自定义的打印消息，和一个数字 4，这个数字是 GC 清除的对象的数量。
 
-:::tip 为什么是 4？
+:::tip[为什么是 4？]
 
 又有点奇怪了，为什么是 4 个，不是删除了两个实例对象？其实每个实例对象也指向一个字符串对象，也就是 `name`，所以是 4 个。
 

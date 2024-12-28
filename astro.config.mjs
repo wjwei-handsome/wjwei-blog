@@ -10,7 +10,7 @@ import {
   starlightAsides,
 } from "./src/utils/remark-admon";
 import expressiveCode from "astro-expressive-code";
-
+import { rehypeShiki } from "@astrojs/markdown-remark";
 import rehypeMermaid from "rehype-mermaid";
 
 // import expressiveCode from "astro-expressive-code";
@@ -18,11 +18,6 @@ import rehypeMermaid from "rehype-mermaid";
 
 // https://astro.build/config
 export default defineConfig({
-  // vite: {
-  //   optimizeDeps: {
-  //     include: ["asciinema-player"],
-  //   },
-  // },
   site: "https://astro-theme-cody.netlify.app",
   integrations: [
     expressiveCode(),
@@ -34,7 +29,7 @@ export default defineConfig({
         ...starlightAsides(),
         remarkDirectivesRestoration,
       ],
-      rehypePlugins: [rehypeKatex, rehypeMermaid],
+      rehypePlugins: [rehypeKatex, rehypeMermaid, rehypeShiki],
       syntaxHighlight: "shiki",
       shikiConfig: {
         // https://docs.astro.build/en/guides/markdown-content/#syntax-highlighting
@@ -53,16 +48,10 @@ export default defineConfig({
     locales: ["en"],
   },
   output: "static",
-  // adapter: vercel(
-  //   {
-  //     webAnalytics: {
-  //       enabled: true,
-  //     },
-  //   }
-  // ),
+
   markdown: {
     remarkPlugins: [remarkReadingTime],
-    rehypePlugins: [rehypeMermaid],
+    rehypePlugins: [rehypeMermaid, rehypeShiki],
     syntaxHighlight: "shiki",
     shikiConfig: {
       // https://docs.astro.build/en/guides/markdown-content/#syntax-highlighting

@@ -5,6 +5,7 @@ tags: [algorithm, code, bioinfo]
 pubDate: Dec 22 2024
 series: algorithm
 ---
+import Mermaid from "../../../components/Mermaid.astro"
 
 ## BWT-Algorithm
 
@@ -36,6 +37,7 @@ BWT 算法可以分为编码和解码两部分
 
 上述操作如下图所示：
 
+<Mermaid>
 ```mermaid
 
 flowchart LR
@@ -46,6 +48,7 @@ flowchart LR
     D -->| 最后一个字符 | F[L:</br>c</br>$</br>b</br>a</br>a</br>b]
 
 ```
+</Mermaid>
 
 :::tip
 
@@ -78,6 +81,7 @@ flowchart
 
 2. L[6] 的字符 `b`，在 F 列中有两个字符 `b`，这时候的原则为：如果该字符在 F 中出现多次，分别是 F[j],F[j+1],..., 共有 k 个，那么就取 F[j+k-1]，比如这里，有两个，F[4],F[5] 都是 `b`，就选择 F[4+2-1]，即 F[5], 即 `a`(<highlight color="green"> 绿色 </highlight>)
 
+<Mermaid>
 ```mermaid
 
 flowchart
@@ -85,6 +89,7 @@ flowchart
     L[L:</br>c</font></br>$</br>b</br>a</br><font color='green'>a</br><font color='blue'>b]
 
 ```
+</Mermaid>
 
 记录字符串为 `abc`
 
