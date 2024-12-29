@@ -50,15 +50,23 @@ import SocialMediaLinks from "@/components/SocialMediaLinks";
 <script>
   import TypeIt from "typeit";
 
+  function createProgressBar(current: number, total: number, width: number = 30): string {
+     const filled = Math.floor(width * (current / total));
+     const empty = width - filled;
+     const bar = '█'.repeat(filled) + '░'.repeat(empty);
+     const percentage = Math.floor((current / total) * 100);
+     return `[${bar}] ${percentage}%`;
+   }
+
   // 等待 DOM 和外部脚本加载完成
   window.addEventListener("load", function () {
     new TypeIt("#typing-area", {  // 修改为正确的选择器
-      speed: 150,               // 可选：调整打字速度
+      speed: 1,               // 可选：调整打字速度
       waitUntilVisible: true,  // 可选：等到元素可见时才开始
       cursor: true,
       breakLines: false,
     }).
-    type('❯ <span class="typingcmd">wjwei</span> --help').
+    type('❯ <span class="typingcmd">wjwei</span> <span class="typingvar">--help</span>').
     pause(500).
     break({instant: true}).
     break({instant: true}).
@@ -114,9 +122,24 @@ import SocialMediaLinks from "@/components/SocialMediaLinks";
     break({instant: true}).
     type("A ship in a harbour is safe but that is not what ships are built for.", {instant: true}).
     break({instant: true}).
+    pause(500).
     break({instant: true}).
-    type('❯ ').
-
+    type('❯ <span class="typingcmd">python3</span> train.py --model CNS --epochs 100').
+    break({instant: true}).
+    type('Training progress: ').
+    // break({instant: true}).
+    type(createProgressBar(30, 100), {instant: true}).
+    pause(300).
+    delete(36, {instant: true}).
+    type(createProgressBar(65, 100), {instant: true}).
+    pause(300).
+    delete(36, {instant: true}).
+    type(createProgressBar(99, 100), {instant: true}).
+    break({instant: true}).
+    type("Always learning...").
+    // break({instant: true}).
+    // break({instant: true}).
+    // type('❯ ').
     go();
   });
 </script>
