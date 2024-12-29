@@ -322,6 +322,10 @@
     @apply font-medium text-sm mb-4 mr-1;
   }
 
+  .primary-500 {
+    @apply text-red-500;
+  }
+
   .typingvar {
     @apply font-medium text-sm mb-4 mr-1;
     color: #b4637a;
