@@ -3,7 +3,7 @@ title: 'crussmap'
 description: 'crussmap is a faster tool to convert genome coordinates between difference reference assemblies.'
 pubDate: 'May 08 2023'
 heroImage:
-    url: '/blog-placeholder-about.jpg'
+    url: 'https://crossmap.readthedocs.io/en/latest/_images/howitworks.png'
     alt: 'GitHub wallpaper'
 platform: CLI
 stack: ['Rust']

@@ -2,7 +2,7 @@
 title: BWT-Algorithm
 description: Burrus-Wheeler Transform Algorithm
 tags: [algorithm, code, bioinfo]
-pubDate: Dec 22 2024
+pubDate: Jan 19 2023
 series: algorithm
 ---
 import Mermaid from "../../../components/Mermaid.astro"
@@ -69,13 +69,15 @@ flowchart LR
 
 1. *L* 列的第一个字符为 `c`(<highlight color="blue"> 蓝色 </highlight>)，在 *F* 列中找到与 `c` 相同的字符，为 F[6]，同时可以得到 L[6]，即 `b`(<highlight color="red"> 红色 </highlight>):
 
+<Mermaid>
 ```mermaid
-
 flowchart
     F[F:</br>$</br>a</br>a</br>b</br>b</br><font color='blue'>c]
     L[L:</br><font color='blue'>c</font></br>$</br>b</br>a</br>a</br><font color='red'>b]
 
 ```
+</Mermaid>
+
 
 记录字符串为 `bc`
 

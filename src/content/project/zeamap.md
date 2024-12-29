@@ -1,6 +1,6 @@
 ---
 title: 'ZEAMAP2'
-description: 'ZEAMAP is a database for Zea genomics and maize genetic improvements by integrating the maize multidimensional data including genomics, transcriptomics, genetic variations, genetic mappings and evolutionary selection sites.'
+description: 'ZEAMAP is a database that integrated the maize multidimensional data.'
 pubDate: 'Mar 13 2024'
 heroImage:
     url: '/zeamap.svg'

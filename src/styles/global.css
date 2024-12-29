@@ -6,13 +6,21 @@
   :root {
     color-scheme: light;
     /* https://tailwindcss.com/docs/customizing-colors#using-css-variables */
-    --theme-bg: #efefef;
+    /* --theme-bg: #efefef;
     --theme-text: #222222;
     --theme-accent: #dd7878;
     --theme-accent-2: #bcc0cd;
     --theme-surface: #e6e6e6;
     --theme-quote: #dd7878;
-    --theme-highlight: #dd7878;
+    --theme-highlight: #dd7878; */
+
+    --theme-bg: #faf4ed;
+    --theme-text: #575279;
+    --theme-accent: #ea9a97;
+    --theme-accent-2: #9893a5;
+    --theme-surface: #fffaf3;
+    --theme-quote: #ebbcba;
+    --theme-highlight: #ea9a97;
 
     --sl-hue-orange: 41;
     --sl-hue-green: 101;
@@ -77,11 +85,21 @@
     --theme-bg: #1d1d1d;
     --theme-text: #ededed;
     /* --theme-accent: #93e1d4; */
-    --theme-accent: #86a788;
+    /* --theme-accent: #86a788; */
+    --theme-accent: #9ccfd8;
     --theme-accent-2: #545454;
     --theme-surface: #2f2f2f;
     --theme-quote: #93e1d4;
     --theme-highlight: #93e1d4;
+
+    /* --theme-bg: #6e6a86;
+    --theme-text: #e0def4;
+    --theme-accent: #3e8fb0;
+    --theme-accent-2: #545454;
+    --theme-surface: #2a273f;
+    --theme-quote: #286983;
+    --theme-highlight: #31748f; */
+
     --sl-color-white: hsl(0, 0%, 100%); /* “white” */
     --sl-color-gray-1: hsl(224, 20%, 94%);
     --sl-color-gray-2: hsl(224, 6%, 77%);
@@ -305,11 +323,13 @@
   }
 
   .typingvar {
-    @apply font-medium text-sm mb-4 mr-1 text-pink-500;
+    @apply font-medium text-sm mb-4 mr-1;
+    color: #b4637a;
   }
 
   .typingcmd {
-    @apply font-medium text-sm mb-4 mr-1 text-blue-500;
+    @apply font-medium text-sm mb-4 mr-1;
+    color: #286983;
   }
 
   hr {
