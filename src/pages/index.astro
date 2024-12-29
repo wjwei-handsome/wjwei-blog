@@ -61,7 +61,7 @@ import SocialMediaLinks from "@/components/SocialMediaLinks";
   // 等待 DOM 和外部脚本加载完成
   window.addEventListener("load", function () {
     new TypeIt("#typing-area", {  // 修改为正确的选择器
-      speed: 1,               // 可选：调整打字速度
+      speed: 50,               // 可选：调整打字速度
       waitUntilVisible: true,  // 可选：等到元素可见时才开始
       cursor: true,
       breakLines: false,
@@ -120,21 +120,22 @@ import SocialMediaLinks from "@/components/SocialMediaLinks";
     break({instant: true}).
     type('❯ <span class="typingcmd">echo</span> <span class="typingvar">$MOTTO</span>').
     break({instant: true}).
+    pause(500).
     type("A ship in a harbour is safe but that is not what ships are built for.", {instant: true}).
     break({instant: true}).
     pause(500).
     break({instant: true}).
-    type('❯ <span class="typingcmd">python3</span> train.py --model CNS --epochs 100').
+    type('❯ <span class="typingcmd">python3</span> <span class="typingvar">train.py --model CNS --epochs 100</span>').
     break({instant: true}).
-    type('Training progress: ').
+    type('Training progress: ', {instant: true}).
     // break({instant: true}).
-    type(createProgressBar(30, 100), {instant: true}).
+    type(createProgressBar(30, 100), {instant: false}).
     pause(300).
     delete(36, {instant: true}).
-    type(createProgressBar(65, 100), {instant: true}).
+    type(createProgressBar(66, 100), {instant: false}).
     pause(300).
     delete(36, {instant: true}).
-    type(createProgressBar(99, 100), {instant: true}).
+    type(createProgressBar(99, 100), {instant: false}).
     break({instant: true}).
     type("Always learning...").
     // break({instant: true}).
