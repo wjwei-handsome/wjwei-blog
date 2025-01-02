@@ -19,7 +19,7 @@ import partytown from "@astrojs/partytown";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astro-theme-cody.netlify.app",
+  site: "https://www.wjwei.blog",
   integrations: [
     expressiveCode(),
     mdx({
