@@ -21,6 +21,7 @@ import partytown from "@astrojs/partytown";
 export default defineConfig({
   site: "https://www.wjwei.blog",
   integrations: [
+    sitemap(),
     expressiveCode(),
     mdx({
       remarkPlugins: [
@@ -40,7 +41,6 @@ export default defineConfig({
         },
       },
     }),
-    sitemap(),
     tailwind(),
     partytown({
       config: {
